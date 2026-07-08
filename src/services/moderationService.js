@@ -447,5 +447,66 @@ export class ModerationService {
       logger.error('Error unbanning user:', error);
       throw error;
     }
+  }static async nicknameUser({
+    guild,
+    member,
+    moderator,
+    nickname
+}) {
+    try {
+
+        if (!guild || !member || !moderator) {
+            throw new TitanBotError(
+                "Missing required parameters",
+                ErrorTypes.VALIDATION,
+                "Guild, member and moderator are required"
+            );
+        }
+
+        this.assertModerationHierarchy(
+            moderator,
+            member,
+            "change the nickname of"
+        );
+
+        if (!member.manageable) {
+            throw new TitanBotError(
+                "Cannot change nickname",
+                ErrorTypes.PERMISSION,
+                "My role is not high enough to change this member's nickname."
+            );
+        }
+
+        const previousNickname =
+            member.nickname || member.user.username;
+
+        await member.setNickname(nickname);
+
+        const caseId = await logModerationAction({
+            client: guild.client,
+            guild,
+            event: {
+                action: "Nickname Changed",
+                target: `${member.user.tag} (${member.id})`,
+                executor: `${moderator.user.tag} (${moderator.id})`,
+                reason: `Changed nickname from "${previousNickname}" to "${nickname ?? "None"}"`,
+                metadata: {
+                    moderatorId: moderator.id,
+                    userId: member.id
+                }
+            }
+        });
+
+        return {
+            success: true,
+            caseId,
+            previousNickname,
+            newNickname: nickname
+        };
+
+    } catch (error) {
+        logger.error("Nickname error:", error);
+        throw error;
+    }
   }
 }
