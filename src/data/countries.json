@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Spain",
+    "capital": "Madrid",
+    "currency": "Euro",
+    "footballFact": "Won the FIFA World Cup in 2010"
+  },
+  {
+    "name": "Brazil",
+    "capital": "Brasília",
+    "currency": "Brazilian Real",
+    "footballFact": "Has won the FIFA World Cup five times"
+  },
+  {
+    "name": "Argentina",
+    "capital": "Buenos Aires",
+    "currency": "Argentine Peso",
+    "footballFact": "Won the FIFA World Cup in 2022"
+  },
+  {
+    "name": "Germany",
+    "capital": "Berlin",
+    "currency": "Euro",
+    "footballFact": "Won the FIFA World Cup in 2014"
+  },
+  {
+    "name": "Japan",
+    "capital": "Tokyo",
+    "currency": "Japanese Yen",
+    "footballFact": "Co-hosted the 2002 FIFA World Cup"
+  }
+]
